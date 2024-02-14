@@ -34,15 +34,15 @@
 Text-video retrieval is a critical multi-modal task to find the most relevant video for a text query. Although pretrained models like CLIP have demonstrated impressive potential in this area, the rising cost of fully finetuning these models due to increasing model size continues to pose a problem. To address this challenge, prompt tuning has emerged as an alternative. However, existing works still face two problems when adapting pretrained image-text models to downstream video-text tasks: (1) The visual encoder could only encode frame-level features and failed to extract global-level general video information. (2) Equipping the visual and text encoder with separated prompts failed to mitigate the visual-text modality gap. To this end, we propose DGL, a cross-modal Dynamic prompt tuning method with Global-Local video attention. In contrast to previous prompt tuning methods, we employ the shared latent space to generate local-level text and frame prompts that encourage inter-modal interaction. Furthermore, we propose modeling video in a global-local attention mechanism to capture global video information from the perspective of prompt tuning. Extensive experiments reveal that when only 0.67% parameters are tuned, our cross-modal prompt tuning strategy DGL outperforms or is comparable to fully finetuning methods on MSR-VTT, VATEX, LSMDC, and ActivityNet datasets. 
 
 <p align="center">
-  <img src="assets/figure1_weight.png" width="500" height="250"/>
-  <img src="assets/motivation_plot.png" width="380" height="250"/>
+  <img src="assets/figure1_weight.png" width="450" height="225"/>
+  <img src="assets/motivation_plot.png" width="340" height="225"/>
 </p>
 
 ## 📚 Method
 
 <div align="center">
-  <img src="assets/figure2.png" width="630" height="250"/>
-  <img src="assets/figure3.jpg" width="250" height="250"/>
+  <img src="assets/figure2.png" width="500" height="200"/>
+  <img src="assets/figure3.jpg" width="200" height="200"/>
 </div>
 
 
@@ -109,12 +109,12 @@ This script will compress the video to *3fps* with width *224* (or height *224*)
 ### Model Zoo
 Note that, due to hardware difference, the results may slightly differ. 
 We have test the performance on A100 GPU with T2V/V2T R@1 is 45.8/43.1
-[log](https://drive.google.com/file/d/1C7o1snkZoJWoD2nqVpNIzl-X_kk_MEgm/view?usp=sharing)，
+[log](https://drive.google.com/file/d/1C7o1snkZoJWoD2nqVpNIzl-X_kk_MEgm/view?usp=sharing),
 on A6000 GPU with T2V/V2T R@1 is 45.4/44.1 
 [log](https://drive.google.com/file/d/1iS38p9CZ0phpYeDw8KKRM5wWp885DWrY/view?usp=sharing).
 
 You can also only adapt global-local video attention with BLIP, following the implementation of [tokenmix](https://github.com/yuqi657/video_language_model) , 
-you can get T2V/V2T R@1 is 48.9/49.0 [log](https://drive.google.com/file/d/1y49uFJEzFiWNyFY4XJFUbNZsOJHK3cfY/view?usp=drive_link) 
+you can get T2V/V2T R@1 is 48.9/49.0 [log](https://drive.google.com/file/d/1y49uFJEzFiWNyFY4XJFUbNZsOJHK3cfY/view?usp=drive_link).
 
 <div align=center>
 
