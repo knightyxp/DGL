@@ -41,8 +41,7 @@ Text-video retrieval is a critical multi-modal task to find the most relevant vi
 ## 📚 Method
 
 <div align="center">
-  <img src="assets/figure2.png" width="630" height="250"/>
-  <img src="assets/figure3.jpg" width="250" height="250"/>
+  <img src="assets/figure2.png" width="800px" />
 </div>
 
 
