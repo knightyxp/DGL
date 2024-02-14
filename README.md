@@ -107,7 +107,7 @@ This script will compress the video to *3fps* with width *224* (or height *224*)
 
 ### Model Zoo
 Note that, due to hardware difference, the results may slightly differ. 
-We have test the performance on A100 GPU with T2V/V2T R@1 is 45.8/43.1
+We have test the performance on A100 GPU with T2V/V2T R@1 is 45.8/43.5
 [log](https://drive.google.com/file/d/1C7o1snkZoJWoD2nqVpNIzl-X_kk_MEgm/view?usp=sharing),
 on A6000 GPU with T2V/V2T R@1 is 45.4/44.1 
 [log](https://drive.google.com/file/d/1iS38p9CZ0phpYeDw8KKRM5wWp885DWrY/view?usp=sharing).
