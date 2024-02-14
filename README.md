@@ -1,232 +1,170 @@
-#DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval :sparkles:
-<!-- :sparkles: -->
+<div align="center">
+  
+# 【AAAI'2024 🔥】DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval
+[![Conference](https://img.shields.io/badge/AAAI-2024-yellow?link=https%3A%2F%2Faaai.org%2Faaai-conference%2F
+)](https://aaai.org/aaai-conference/)
+[![Paper](https://img.shields.io/badge/Paper-arxiv.2401.10588-blue?link=https%3A%2F%2Farxiv.org%2Fabs%2F2401.10588
+)](https://arxiv.org/abs/2401.10588)
+</div>
 
-The official implementation of [AAAI-24, DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval](https://arxiv.org/abs/2401.10588).
 
 
 ##  Table of Contents
 
 <!--ts-->
-* [Introduction](#Introduction)
-* [Features](#Features)
-* [Installation](#Installation)
-* [Classification](#Classification)
-* [Retrieval](#Retrieval)
-* [Captioning](#Captioning)
-* [Citations](#Citations)
-* [Acknowledgements](#Acknowledgements)
+* [Updates](#📣Updates)
+* [Overview](#📕Overview)
+* [Method](#📚Method)
+* [Visualization](⚡️Visualization)
+* [Quick Start](🚀QuickStart)
+* [Test](#Test)
+* [Train](#Train)
+* [Citation](#📌Citation)
+
 <!--te-->
 
-## News
 
-- [17/01/2024] repo online.
+## 📣 Updates
+* Feb 15 2024: Release the code of DGL. 
 
 
-## Introduction
+## 📕 Overview
 
 <div align="justify">
 Text-video retrieval is a critical multi-modal task to find the most relevant video for a text query. Although pretrained models like CLIP have demonstrated impressive potential in this area, the rising cost of fully finetuning these models due to increasing model size continues to pose a problem. To address this challenge, prompt tuning has emerged as an alternative. However, existing works still face two problems when adapting pretrained image-text models to downstream video-text tasks: (1) The visual encoder could only encode frame-level features and failed to extract global-level general video information. (2) Equipping the visual and text encoder with separated prompts failed to mitigate the visual-text modality gap. To this end, we propose DGL, a cross-modal Dynamic prompt tuning method with Global-Local video attention. In contrast to previous prompt tuning methods, we employ the shared latent space to generate local-level text and frame prompts that encourage inter-modal interaction. Furthermore, we propose modeling video in a global-local attention mechanism to capture global video information from the perspective of prompt tuning. Extensive experiments reveal that when only 0.67% parameters are tuned, our cross-modal prompt tuning strategy DGL outperforms or is comparable to fully finetuning methods on MSR-VTT, VATEX, LSMDC, and ActivityNet datasets. 
 
 <p align="center">
-  <img src="assets/figure1_weight.png" width="400"/>
-  <img src="assets/motivation_slides_cut.png" width="400"/>
+  <img src="assets/figure1_weight.png" width="500" height="250"/>
+  <img src="assets/motivation_slides_cut.png" width="400" height="250"/>
+  <img src="assets/motivation_plot.png" width="380" height="250"/>
 </p>
 
+## 📚 Method
+
+<div align="center">
+<img src="assets/figure2.png" width="800px">
+</div>
 
 
-## Features
+## ⚡️ Visualization
+### DGL can extract global information (bottom) and temporal dynamics (top)
+<div align="center">
+<img src="assets/figure5.png" width="800px">
+</div>
 
-- [x] TTA for CLIP OOD classification with RLCF. Prompt tuning + backbone tuning.
-- [x] TTA for CLIP retrieval with RLCF.
-- [x] Training and TTA for ClipCap and CapDec.
+
+<details>
+<summary><b>More examples for global information and temporal dynamics </b></summary>
+  
+### global information
+<div align=center>
+<img src="assets/example_global_information.jpg" width="800px">
+</div>
+
+### temporal dynamics
+<div align=center>
+<img src="assets/example_temporal_dynamics.jpg" width="800px">
+</div>
+</details>
 
 
-## Installation
+## 🚀 Quick Start
 
-The code in this repo about the three tasks are independent. You can step up them task by task.
+### Setup
+#### Setup conda environment
+```
+conda env create -f environment.yml
+```
+
+### Download CLIP Model
+Download CLIP pre-trained weights and place them in `${HOME}/models/pretrained`.
+
+```
+wget https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt
+```
+
+
+#### Download Datasets
+MSR-VTT
+
+Download the splits and captions from CLIP4clip:
+```
+wget https://github.com/ArrowLuo/CLIP4Clip/releases/download/v0.0/msrvtt_data.zip
+```
+Download the videos from Frozen️-in-Time:
+```
+wget https://www.robots.ox.ac.uk/~maxbain/frozen-in-time/data/MSRVTT.zip
+```
+
 
 ### Prepare data
 
-First of all, you need to download the dataset and pre-trained models.
-
-- OOD image classification dataset
-  * [ImageNet](https://image-net.org/index.php)
-  * [ImageNet-on-huggingface](https://huggingface.co/datasets/imagenet-1k) 
-  * [ImageNet-A](https://github.com/hendrycks/natural-adv-examples)
-  * [ImageNet-R](https://github.com/hendrycks/imagenet-r)
-  * [ImageNet-V2](https://huggingface.co/datasets/vaishaal/ImageNetV2/tree/main)
-  * [ImageNet-Sketch](https://github.com/HaohanWang/ImageNet-Sketch)
-  * The code also supports fine-grained datasets used in TPT and ImageNet-C.
-
-- Retrieval dataset (credit on [salesforce/LAVIS](https://github.com/salesforce/LAVIS/blob/main/dataset_card/coco_retrieval.md))
-  * [coco2014](https://github.com/salesforce/LAVIS/blob/main/dataset_card/coco_retrieval.md)
-  * [flickr30k](https://github.com/salesforce/LAVIS/blob/main/dataset_card/flickr_retrieval.md)
-  * [annotations-files](https://github.com/mzhaoshuai/RLCF/releases/download/0.0.1/annotations.zip)
-
-- Captioning dataset
-  * [coco2014](https://github.com/salesforce/LAVIS/blob/main/dataset_card/coco_caption.md)
-  * [nocaps](https://nocaps.org/download)
-  * [annotations-files](https://github.com/mzhaoshuai/RLCF/releases/download/0.0.1/annotations.zip)
-
-- weights of pre-trained models:
-    - [CLIP-ViT-B/32](https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt)
-    - [CLIP-ViT-B/16](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt)
-    - [CLIP-ViT-L/14](https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt)
-    - [RN50x64](https://openaipublic.azureedge.net/clip/models/be1cfb55d75a9666199fb2206c106743da0f6468c9d327f3e0d0a543a9919d9c/RN50x64.pt)
-    - [facebook/opt-125m](https://huggingface.co/facebook/opt-125m)
-    - [CoOp Weights](https://drive.google.com/file/d/18ypxfd82RR0pizc5MM1ZWDYDk4j0BtPF/view)
-    - [weights-of-ClipCap](https://github.com/mzhaoshuai/RLCF/releases/download/0.0.1/capdec_opt125m_transformer_coco_01.zip) Put them at the `${ROOT}/output`.
-    - [weights-of-CapDec](https://github.com/mzhaoshuai/RLCF/releases/download/0.0.1/clipcap_opt125m_transformer_coco_01.zip) Put them at the `${ROOT}/output`.
-
-- For convenient, you can also download all the datasets at BaiduYunPan. Please only use for research or education purposes.
-  * [BaiduYunPan RLCF](https://pan.baidu.com/s/1HStpgyMFLYUjgJLh6ZI14w?pwd=d653), code is `d653`.
-
-
-Generally, directories are organized as follows:
+- Video preprocessing can be done by [preprocess/compress_video.py](preprocess/compress_video.py).
+```sh
+python preprocess/compress_video.py --input_root [raw_video_path] --output_root [compressed_video_path]
 ```
-${ROOT}
-├── dataset
-│   │
-│   ├──tta_data
-│   │   ├──ImageNet
-│   │   ├──imagenet-a
-│   │   ├──imagenet-r
-│   │   ├──ImageNet-Sketch
-│   │   └──imagenetv2-matched-frequency-format-val
-│   │       
-│   ├──coco2014
-│   ├──nocaps
-│   └──flickr30k
-│
-├── code
-│   └── RLCF
-│       ├──caption
-│       ├──clipscore
-│       ├──retrieval
-│       └──TPT  
-│ 
-├── output (save the output of the program)
-│
-│
-├── pretrained
-│       ├──opt-125m
-│       ├──coop
-│       │    └──coop_16shots_nctx4_cscFalse_ctpend_vitb16_seed1
-│       │
-│       └── clip (download the CLIP pre-trained weights and put them here)
-│            └── ViT-B-16.pt
-│
-...
-```
-
-### Dependency
-
-Requires `Python >= 3.8` and `PyTorch >= 1.12`.
-The following commands are tested on a Linux machine with CUDA Driver Version `525.105.17` and CUDA Version `11.7`.
-```
-conda create --name rlcf python==3.8
-pip install -r requirements.txt 
-```
-I use
-```
-torch==1.13.1+cu117
-torchvision==0.14.1+cu117
---extra-index-url https://download.pytorch.org/whl/cu117
-```
-in the requirements file.
-
-If you use other versions of cuda, simply remove them (the last 3 lines in the txt file) in `requirements.txt` then do
-```
-conda create --name rlcf python==3.8
-conda install pytorch==1.13.1 torchvision==0.14.1 -c pytorch
-pip install -r requirements.txt 
-```
+This script will compress the video to *3fps* with width *224* (or height *224*). Modify the variables for your customization.
 
 
-## Classification
+## Test
+
+### Model Zoo
+Note that, due to hardware difference, the results may slightly differ. 
+We have test the performance on A100 GPU with T2V/V2T R@1 is 45.8/43.1
+[log](https://drive.google.com/file/d/1C7o1snkZoJWoD2nqVpNIzl-X_kk_MEgm/view?usp=sharing)，
+on A6000 GPU with T2V/V2T R@1 is 45.4/44.1 
+[log](https://drive.google.com/file/d/1iS38p9CZ0phpYeDw8KKRM5wWp885DWrY/view?usp=sharing).
+
+You can also only adapt global-local video attention with BLIP, following the implementation of [tokenmix](https://github.com/yuqi657/video_language_model) , 
+you can get T2V/V2T R@1 is 48.9/49.0 [log](https://drive.google.com/file/d/1y49uFJEzFiWNyFY4XJFUbNZsOJHK3cfY/view?usp=drive_link) 
+
 <div align=center>
-  <img src="assets/cls.png" style="zoom:100%"/></pr>
+
+|Checkpoint|CLIP|Shared Latent Space|Google Cloud|
+|:--------:|:--------------:|:--------------:|:--------------:|
+| MSR-VTT|ViT-B/32|Transformer| [Download](https://drive.google.com/file/d/1QZ4a9p1GJ20W418Njl_j1GJVyTLWiY17/view?usp=sharing) | 
+| MSR-VTT|ViT-B/16|Transformer| [Download](https://drive.google.com/file/d/1DSxSk07AykbEiV8_qYP90bd0HEBfV3tN/view?usp=sharing) | 
+| VATEX |ViT-B/32|Linear|[Download](https://drive.google.com/file/d/10fW99Bce5172jubQkX52l75zsBTR8GMV/view?usp=sharing) |  
+| LSMDC |ViT-B/32|Linear|[Download](https://drive.google.com/file/d/1UfzjBuMkfimqg5A6CAV7EDvzb_pU3N7Q/view?usp=sharing) |  
+| ActivityNet |ViT-B/32|Transformer|[Download](https://drive.google.com/file/d/13UG-oW7Kc8dzbUUmqcuWySSX3mCn-L6G/view?usp=sharing) | 
 </div>
 
-- Before training, you should set the path properly. **Change all `root` variables in `TPT/scripts/*.sh` to you path.**
-- Set up the directory of CLIP in the python files properly. Variables `DOWNLOAD_ROOT_v2` in `TPT/clip_reward.py` and `TPT/clip/custom_clip.py`.
-
-Then you can `cd TPT/scripts`,
-- For test-time prompt tuning with CLIP reward, refer to
 ```
-bash rlcf-prompt.sh 0
-```
-To evaluate on ImageNet, ImageNet-V2, and ImageNet-Sketch (which has 1000 classes), you will need a GPU with more than (not including) 16GB memory. 
-
-
-- For test-time CLIP image encoder tuning with CLIP reward, refer to
-```
-bash rlcf-tune.sh 0
-```
-A 16GB GPU card should be enough.
-
-
-## Retrieval
-<div align=center>
-  <img src="assets/ret.png" style="zoom:100%"/></pr>
-</div>
-
-- Before training, you should set the path properly. **Change all `root` variables in `retrieval/scripts/*.sh` to you path.**
-- Set up the directory of CLIP in the config and python files properly.
-  * global search `/YOUR/PATH` in the `retrieval` directory, and change `/YOUR/PATH` to your path.
-  * To name a few, `retrieval/lavis/models/clip_models/pretrained.py`, `retrieval/lavis/configs/datasets/coco` and `flickr30k`, `retrieval/clip_rewards.py`, `retrieval/custom_models.py`, ... 
-
-Then you can `cd retrieval/scripts`,
-- For test-time CLIP image encoder tuning with CLIP reward on COCO2014, refer to
-```
-bash tta_coco_ret.sh 0
+#eval in MSRVTT
+bash scripts/msrvtt.sh
+#set
+do_train=0
+do_eval=1
+shared_latent_space=transformer/linear
+resume='path of ckpt.best.pth.tar'
 ```
 
-- For test-time CLIP image encoder tuning with CLIP reward on flickr30k, refer to
+## Train
 ```
-bash tta_flickr_ret.sh 0
+#set
+shared_latent_space=transformer/linear
+
+#For DGL-Linear, your can only training with 0.83 MB parameters.
+
+#MSR-VTT
+scripts/msrvtt.sh
+
+# VATEX
+scripts/vatex.sh
+
+# LSMDC
+scripts/lsmdc.sh
+
+# ActivityNet
+scripts/activitynet.sh
 ```
 
-## Captioning
-<div align=center>
-  <img src="assets/cap.png" style="zoom:100%"/></pr>
-</div>
-
-- Before training, you should set the path properly. **Change all `root` variables in `caption/scripts/*.sh` to you path.**
-- Set up the directory of CLIP in the python files properly.
-  * global search `/YOUR/PATH` in the `caption` directory, and change `/YOUR/PATH` to your path.
-  * To name a few, `caption/clip_rewards.py`...
- 
-Then you can `cd caption/scripts`,
-- For TTA with CapDec, COCO --> flickr30k or COCO --> Nocaps,  refer to
+## 📌 Citation
 ```
-bash tta_capdec_c2f.sh 0
-bash tta_capdec_c2n.sh 0
-```
-
-- For TTA with ClipCap, COCO --> flickr30k or COCO --> Nocaps, refer to
-```
-bash tta_clipcap_c2f.sh 0
-bash tta_clipcap_c2n.sh 0
-```
-
-- For training with ClipCap or CapDec on COCO, refer to
-```
-bash train_capdec_coco.sh 0
-bash train_clipcap_coco.sh 0
-```
-You need to download the [CLIP-features-for-coco](https://github.com/mzhaoshuai/RLCF/releases/download/0.0.1/COCO_train_set_image_text_vitb16_v2.zip) or [CLIP-features-for-flikcr](https://github.com/mzhaoshuai/RLCF/releases/download/0.0.1/flickr_train_set_image_text_vitb16_v2.zip) before training.
-
-
-- For the evaluation of captioning results, we adopt the scripts from `clipscore`. It includes `Bleu`, `Meteor`, `Rouge`, `Cider`, `CLIPScore`. If you want to get `Spice`, try to uncomment line25 in `clipscore/generation_eval_utils.py`.
-
-
-## Citations
-```
-@inproceedings{zhao2024rlcf,
-    title={Test-Time Adaptation with CLIP Reward for Zero-Shot Generalization in Vision-Language Models},
-    author={Shuai, Zhao and Xiaohan, Wang and Linchao, Zhu and Yi, Yang},
-    booktitle={ICLR},
+@inproceedings{yang2024dgl,
+    title={DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval}, 
+    author={Xiangpeng Yang and Linchao Zhu and Xiaohan Wang and Yi Yang},
+    booktitle={AAAI},
     year={2024}
 }
 ```
@@ -237,18 +175,9 @@ You need to download the [CLIP-features-for-coco](https://github.com/mzhaoshuai/
 This repo is built upon these previous works.
 
 <!--ts-->
-* [azshue/TPT](https://github.com/azshue/TPT)
-* [openai/CLIP](https://github.com/openai/CLIP)
-* [mlfoundations/open_clip](https://github.com/mlfoundations/open_clip)
-* [huggingface/transformers](https://github.com/huggingface/transformers)
-* [salesforce/LAVIS](https://github.com/salesforce/LAVIS)
-* [KaiyangZhou/CoOp](https://github.com/KaiyangZhou/CoOp)
-* [j-min/CLIP-Caption-Reward](https://github.com/j-min/CLIP-Caption-Reward)
-* [rmokady/CLIP_prefix_caption](https://github.com/rmokady/CLIP_prefix_caption)
-* [DavidHuji/CapDec](https://github.com/DavidHuji/CapDec)
 * [mzhaoshuai/CenterCLIP](https://github.com/mzhaoshuai/CenterCLIP)
-* [VamosC/CoLearning-meet-StitchUp](https://github.com/VamosC/CoLearning-meet-StitchUp)
-* [VamosC/CLIP4STR](https://github.com/VamosC/CLIP4STR)
-<!--te-->
+* [ArrowLuo/CLIP4Clip](https://github.com/ArrowLuo/CLIP4Clip)
+* [jpthu17/DiffusionRet](https://github.com/jpthu17/DiffusionRet)
+* [jpthu17/HBI](https://github.com/jpthu17/HBI)
 
-The ghost sentence of this project is cupbearer tinsmith richly automatic rewash liftoff ripcord april fruit voter resent facebook.
+<!--te-->

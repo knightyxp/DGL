@@ -1,5 +1,5 @@
 #!/bin/bash
-export CUDA_VISIBLE_DEVICES=0,1
+export CUDA_VISIBLE_DEVICES=0,1,2,3
 echo "Using local machine for training"
 
 # dataset
@@ -15,8 +15,8 @@ features_path=${DATA_PATH}/resized_videos
 pretrained_dir=/home/xianyang/Data/models/pretrained
 
 # train or eval
-do_train=0
-do_eval=1
+do_train=1
+do_eval=0
 
 
 # learning strategies
@@ -29,7 +29,8 @@ optim=AdamW
 max_words=32
 max_frames=12
 temperature_new=1.0
-resume=/home/xianyang/Data/code/DGL/pth_backup/msrvtt_dgl_transformer_vit32_45.8_ckpt.best.pth.tar
+resume=None
+#/home/xianyang/Data/code/DGL/pth_backup/msrvtt_dgl_transformer_vit32_45.8_ckpt.best.pth.tar
 load_from_pretrained=0
 batch_size=128           # single GPU batch size
 batch_size_val=16
