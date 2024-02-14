@@ -128,12 +128,13 @@ you can get T2V/V2T R@1 is 48.9/49.0 [log](https://drive.google.com/file/d/1y49u
 
 ```
 #eval in MSRVTT
-bash scripts/msrvtt.sh
 #set
 do_train=0
 do_eval=1
 shared_latent_space=transformer/linear
 resume='path of ckpt.best.pth.tar'
+
+bash scripts/msrvtt.sh
 ```
 
 ## Train
