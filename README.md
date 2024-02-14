@@ -12,14 +12,14 @@
 ##  Table of Contents
 
 <!--ts-->
-* [Updates](#📣Updates)
-* [Overview](#📕Overview)
-* [Method](#📚Method)
-* [Visualization](⚡️Visualization)
-* [Quick Start](🚀QuickStart)
-* [Test](#Test)
-* [Train](#Train)
-* [Citation](#📌Citation)
+* [Updates](#📣-updates)
+* [Overview](#📕-overview)
+* [Method](#📚-method)
+* [Visualization](#⚡️-visualization)
+* [Quick Start](#🚀-quick-start)
+* [Test](#test)
+* [Train](#train)
+* [Citation](#📌-citation)
 
 <!--te-->
 
@@ -35,14 +35,14 @@ Text-video retrieval is a critical multi-modal task to find the most relevant vi
 
 <p align="center">
   <img src="assets/figure1_weight.png" width="500" height="250"/>
-  <img src="assets/motivation_slides_cut.png" width="400" height="250"/>
   <img src="assets/motivation_plot.png" width="380" height="250"/>
 </p>
 
 ## 📚 Method
 
 <div align="center">
-<img src="assets/figure2.png" width="800px">
+  <img src="assets/figure2.png" width="630" height="250"/>
+  <img src="assets/figure3.jpg" width="250" height="250"/>
 </div>
 
 
@@ -70,8 +70,7 @@ Text-video retrieval is a critical multi-modal task to find the most relevant vi
 
 ## 🚀 Quick Start
 
-### Setup
-#### Setup conda environment
+### Setup Setup conda environment
 ```
 conda env create -f environment.yml
 ```
@@ -83,10 +82,9 @@ Download CLIP pre-trained weights and place them in `${HOME}/models/pretrained`.
 wget https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt
 ```
 
+### Download Datasets
 
-#### Download Datasets
 MSR-VTT
-
 Download the splits and captions from CLIP4clip:
 ```
 wget https://github.com/ArrowLuo/CLIP4Clip/releases/download/v0.0/msrvtt_data.zip
@@ -99,8 +97,8 @@ wget https://www.robots.ox.ac.uk/~maxbain/frozen-in-time/data/MSRVTT.zip
 
 ### Prepare data
 
-- Video preprocessing can be done by [preprocess/compress_video.py](preprocess/compress_video.py).
-```sh
+Video preprocessing can be done by [preprocess/compress_video.py](preprocess/compress_video.py).
+```
 python preprocess/compress_video.py --input_root [raw_video_path] --output_root [compressed_video_path]
 ```
 This script will compress the video to *3fps* with width *224* (or height *224*). Modify the variables for your customization.
