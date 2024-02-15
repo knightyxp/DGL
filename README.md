@@ -5,9 +5,20 @@
 )](https://aaai.org/aaai-conference/)
 [![Paper](https://img.shields.io/badge/Paper-arxiv.2401.10588-blue?link=https%3A%2F%2Farxiv.org%2Fabs%2F2401.10588
 )](https://arxiv.org/abs/2401.10588)
+The official implementation of AAAI24 paper [DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval](https://arxiv.org/abs/2401.10588).
+
 </div>
 
-
+## 📌 Citation
+If you find this paper useful, please consider staring 🌟 this repo and citing 📑 our paper:
+```
+@inproceedings{yang2024dgl,
+    title={DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval}, 
+    author={Xiangpeng Yang and Linchao Zhu and Xiaohan Wang and Yi Yang},
+    booktitle={AAAI},
+    year={2024}
+}
+```
 
 ##  Table of Contents
 
@@ -45,7 +56,7 @@ Text-video retrieval is a critical multi-modal task to find the most relevant vi
 </div>
 
 
-## ⚡️ Visualization
+## 😍 Visualization
 ### DGL can extract global information (bottom) and temporal dynamics (top)
 <div align="center">
 <img src="assets/figure5.png" width="700" height="auto">
@@ -155,16 +166,6 @@ scripts/lsmdc.sh
 
 # ActivityNet
 scripts/activitynet.sh
-```
-
-## 📌 Citation
-```
-@inproceedings{yang2024dgl,
-    title={DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval}, 
-    author={Xiangpeng Yang and Linchao Zhu and Xiaohan Wang and Yi Yang},
-    booktitle={AAAI},
-    year={2024}
-}
 ```
 
 
