@@ -7,7 +7,7 @@
 )](https://arxiv.org/abs/2401.10588)
 </div>
 
-The official implementation of AAAI24 paper [DGL:Dynamic Global-Local Prompt Tuning for Text-Video Retrieval](https://arxiv.org/abs/2401.10588), with only training 0.83 MB parameters, we can surpass fully finetuning/PEFL methods in Text2Video Retrieval.
+The official implementation of AAAI24 paper [DGL:Dynamic Global-Local Prompt Tuning for Text-Video Retrieval](https://arxiv.org/abs/2401.10588). With only training 0.83 MB parameters, we can surpass fully finetuning/PEFL methods in Text2Video Retrieval.
 
 ## 📌 Citation
 If you find this paper useful, please consider staring 🌟 this repo and citing 📑 our paper:
