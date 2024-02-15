@@ -1,24 +1,23 @@
 #!/bin/bash
+export NCCL_IB_DISABLE=1
+export NCCL_P2P_DISABLE=1
 export PYTHONUNBUFFERED="True"
-
+export NCCL_DEBUG=INFO
+#export CUDA_LAUNCH_BLOCKING=1
 # hyperparameter
-'''
-echo -n "input the gpu (seperate by comma (,) ): "
-read gpus
-export CUDA_VISIBLE_DEVICES=${gpus}
-'''
-export CUDA_VISIBLE_DEVICES=0,1,2,3
+#echo -n "input the gpu (seperate by comma (,) ): "
+#read gpus
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 echo "Using local machine for training"
-
 # dataset
-dataset=msvd
+dataset=vatex
 fps=3
 
-DATA_PATH=/root/paddlejob/workspace/env_run/dataset/msvd
-train_csv=${DATA_PATH}/MSRVTT_train.9k.csv
-features_path=${DATA_PATH}/msvd_resized
+DATA_PATH=/dataset/vatex_resized
+features_path=${DATA_PATH}/vatex_resized_videos
 data_path=${DATA_PATH}
-pretrained_dir=/root/paddlejob/workspace/env_run/models/pretrained
+pretrained_dir=/models/pretrained
+train_csv=${DATA_PATH}/MSRVTT_train.9k.csv
 # lmdb_dataset=${DATA_PATH}/lmdb/msrvtt.lmdb
 lmdb_dataset=None
 
@@ -28,50 +27,37 @@ do_eval=0
 
 # learning strategies
 pretrained_clip_name=ViT-B/32
-lr=2e-3
+lr=5e-3
 coef_lr=1e-3
 wd=0.2
-epochs=5
+epochs=10
 optim=AdamW
 max_frames=12
 temperature_new=1.0
 resume=None
 load_from_pretrained=0
 batch_size=64           # single GPU batch size
-batch_size_val=64
+batch_size_val=16
 num_workers=8
 n_display=50            # log per n_display
 precision=amp
 # precision='fp32'
 # precision='fp16'
-freeze_clip=0
-
-# token cluster inter
-cluster_inter=0
-cluster_algo='kmediods++'
-cluster_embedding=0
-cluster_distance='euclidean'
-minkowski_norm_p=2.0
-cluster_iter_limit=100
-cluster_threshold=1e-6
-cluster_frame_embedding=0
-spectral_sigma=2.0
-spectral_graph='HeatKernel'
-spectral_knn_k=1
-deep_cluster=0
-
-cluster_num_blocks='49 49 49 49 49 49 49 49 49 49 49 49'
-target_frames_blocks='12 12 12 12 12 12 6 6 6 6 6 6'
-
+freeze_clip=1
 
 # distributed training
 init_method='tcp://127.0.0.1:6061'
+camoe_dsl=0
+text_prompt_length=8
+local_each_frame_prompt_length=4
+global_visual_prompt_length=4
+unified_prompt_layers=12
 
-
-model_dir=/root/paddlejob/workspace/env_run/CLIPprompt/logs/${dataset}_120_full_finetuning
+shared_latent_space=linear
+model_dir=logs/${dataset}_linear_proj_vt_prompt_vit32_lr${lr}
 echo "The model dir is ${model_dir}"
-
 # CUDA_LAUNCH_BLOCKING=1
+
 python main.py \
         --do_train ${do_train} \
         --do_eval ${do_eval} \
@@ -104,23 +90,13 @@ python main.py \
         --precision ${precision} \
         --init_method ${init_method} \
         --pretrained_dir ${pretrained_dir} \
-        --cluster_algo ${cluster_algo} \
-        --cluster_threshold ${cluster_threshold} \
-        --cluster_distance ${cluster_distance} \
-        --minkowski_norm_p ${minkowski_norm_p} \
-        --cluster_iter_limit ${cluster_iter_limit} \
-        --cluster_inter ${cluster_inter} \
-        --cluster_embedding ${cluster_embedding} \
-        --cluster_frame_embedding ${cluster_frame_embedding} \
-        --cluster_num_blocks ${cluster_num_blocks} \
-        --target_frames_blocks ${target_frames_blocks} \
-        --deep_cluster ${deep_cluster} \
-        --spectral_sigma ${spectral_sigma} \
-        --spectral_graph ${spectral_graph} \
-        --spectral_knn_k ${spectral_knn_k} \
         --freeze_clip ${freeze_clip} \
         --resume ${resume} \
-        --load_from_pretrained ${load_from_pretrained}
+        --load_from_pretrained ${load_from_pretrained} \
+        --text_prompt_length ${text_prompt_length} \
+        --local_each_frame_prompt_length ${local_each_frame_prompt_length} \
+        --global_visual_prompt_length ${global_visual_prompt_length} \
+        --unified_prompt_layers ${unified_prompt_layers} 
 
 done
 

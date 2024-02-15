@@ -12,14 +12,14 @@
 ##  Table of Contents
 
 <!--ts-->
-* [Updates](#📣-updates)
-* [Overview](#📕-overview)
-* [Method](#📚-method)
-* [Visualization](#⚡️-visualization)
-* [Quick Start](#🚀-quick-start)
+* [Updates](#-updates)
+* [Overview](#-overview)
+* [Method](#-method)
+* [Visualization](#-visualization)
+* [Quick Start](#-quick-start)
 * [Test](#test)
 * [Train](#train)
-* [Citation](#📌-citation)
+* [Citation](#-citation)
 
 <!--te-->
 

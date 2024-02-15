@@ -46,7 +46,7 @@ unified_prompt_layers=12
 # distributed training
 init_method='tcp://127.0.0.1:6061'
 camoe_dsl=0
-
+shared_latent_space=linear
 
 model_dir=/logs/${dataset}_linear_proj_vt_prompt_vit32_lr${lr}
 echo "The model dir is ${model_dir}"

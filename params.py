@@ -16,7 +16,7 @@ def get_default_params(model_name):
         return {}
 
 
-def get_args(description='CenterCLIP on Retrieval Task'):
+def get_args(description='DGL on Retrieval Task'):
     """config of program"""
     parser = argparse.ArgumentParser(description=description)
 
