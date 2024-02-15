@@ -9,20 +9,6 @@
 
 The official implementation of AAAI24 paper [DGL:Dynamic Global-Local Prompt Tuning for Text-Video Retrieval](https://arxiv.org/abs/2401.10588)
 
-
-##  Table of Contents
-
-<!--ts-->
-* [Citation](#-citation)
-* [Updates](#-updates)
-* [Overview](#-overview)
-* [Method](#-method)
-* [Visualization](#-visualization)
-* [Quick Start](#-quick-start)
-* [Test](#test)
-* [Train](#train)
-<!--te-->
-
 ## 📌 Citation
 If you find this paper useful, please consider staring 🌟 this repo and citing 📑 our paper:
 ```
@@ -34,7 +20,18 @@ If you find this paper useful, please consider staring 🌟 this repo and citing
 }
 ```
 
+##  Table of Contents
 
+<!--ts-->
+* [Updates](#-updates)
+* [Overview](#-overview)
+* [Method](#-method)
+* [Visualization](#-visualization)
+* [Quick Start](#-quick-start)
+* [Test](#test)
+* [Train](#train)
+
+<!--te-->
 
 
 ## 📣 Updates
