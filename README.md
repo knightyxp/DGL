@@ -6,7 +6,8 @@
 [![Paper](https://img.shields.io/badge/Paper-arxiv.2401.10588-blue?link=https%3A%2F%2Farxiv.org%2Fabs%2F2401.10588
 )](https://arxiv.org/abs/2401.10588)
 </div>
-The official implementation of AAAI24 paper [DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval](https://arxiv.org/abs/2401.10588).
+
+The official implementation of AAAI24 paper [DGL:Dynamic Global-Local Prompt Tuning for Text-Video Retrieval](https://arxiv.org/abs/2401.10588)
 
 ## 📌 Citation
 If you find this paper useful, please consider staring 🌟 this repo and citing 📑 our paper:
