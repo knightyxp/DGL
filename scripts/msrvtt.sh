@@ -9,7 +9,7 @@ fps=3
 DATA_PATH=/home/xianyang/Data/dataset/msrvtt_data
 train_csv=${DATA_PATH}/MSRVTT_train.9k.csv
 # training-9k
-val_csv=${DATA_PATH}/MSRVTT_JSFUSION_test.csv
+val_csv=dataset/msrvtt/MSRVTT_JSFUSION_test.csv
 data_path=${DATA_PATH}/MSRVTT_data.json
 features_path=${DATA_PATH}/resized_videos
 pretrained_dir=/home/xianyang/Data/models/pretrained
