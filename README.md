@@ -164,10 +164,7 @@ bash scripts/msrvtt.sh
 Prepare sim matrix and train_test t2v and v2t, search for your best T2V/V2T R@1!
 ```
 #Search for best performance using QB norm
-#set prepare sim matrix in the folder, i,e, 
-#"qb_norm_sim_matrix/msrvtt_vit16_sim_matrix.npy"3
-#"qb_norm_sim_matrix/msrvtt_vit16_train_test_t2v.npy"
-#"qb_norm_sim_matrix/msrvtt_vit16_train_test_v2t.npy"
+#set prepare sim matrix in the folder, i,e, msrvtt_vit16_sim_matrix.npy, msrvtt_vit16_train_test_t2v.npy, msrvtt_vit16_train_test_v2t.npy
 python search_for_best_r1_with_qb_norm.py
 ```
 
