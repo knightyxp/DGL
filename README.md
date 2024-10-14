@@ -13,10 +13,13 @@ The official implementation of AAAI24 paper [DGL:Dynamic Global-Local Prompt Tun
 If you find this paper useful, please consider staring 🌟 this repo and citing 📑 our paper:
 ```
 @inproceedings{yang2024dgl,
-    title={DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval}, 
-    author={Xiangpeng Yang and Linchao Zhu and Xiaohan Wang and Yi Yang},
-    booktitle={AAAI},
-    year={2024}
+  title={DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval},
+  author={Yang, Xiangpeng and Zhu, Linchao and Wang, Xiaohan and Yang, Yi},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={38},
+  number={7},
+  pages={6540--6548},
+  year={2024}
 }
 ```
 
@@ -35,6 +38,7 @@ If you find this paper useful, please consider staring 🌟 this repo and citing
 
 
 ## 📣 Updates
+* Oct 14 2024: Update code for qb norm and visualization. 
 * Feb 15 2024: Release the code of DGL. 
 
 
@@ -76,6 +80,15 @@ Text-video retrieval is a critical multi-modal task to find the most relevant vi
 </div>
 </details>
 
+
+Since the visualization code need to cache the global prompt on frame weights and 
+we provide another code project for visualization, 
+the full code is provided at [visualization code](https://drive.google.com/file/d/1tZudbN1_LdIzIg_2jrMGQR6lkQ3_-8se/view?usp=sharing) 
+```
+#unzip the code
+#then replace pretrained_weight path(model_dir in mstvtt.sh)
+python main.py
+```
 
 ## 🚀 Quick Start
 
@@ -146,6 +159,18 @@ resume='path of ckpt.best.pth.tar'
 
 bash scripts/msrvtt.sh
 ```
+
+### Search for best performance
+Prepare sim matrix and train_test t2v and v2t, search for your best T2V/V2T R@1!
+```
+#Search for best performance using QB norm
+#set prepare sim matrix in the folder, i,e, 
+#"qb_norm_sim_matrix/msrvtt_vit16_sim_matrix.npy"3
+#"qb_norm_sim_matrix/msrvtt_vit16_train_test_t2v.npy"
+#"qb_norm_sim_matrix/msrvtt_vit16_train_test_v2t.npy"
+python search_for_best_r1_with_qb_norm.py
+```
+
 
 ## Train
 ```
