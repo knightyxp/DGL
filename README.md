@@ -2,12 +2,12 @@
   
 # 【AAAI'2024 🔥】DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval
 [![Conference](https://img.shields.io/badge/AAAI-2024-yellow?link=https%3A%2F%2Faaai.org%2Faaai-conference%2F
-)](https://aaai.org/aaai-conference/)
+)](https://ojs.aaai.org/index.php/AAAI/article/view/28475)
 [![Paper](https://img.shields.io/badge/Paper-arxiv.2401.10588-blue?link=https%3A%2F%2Farxiv.org%2Fabs%2F2401.10588
-)](https://arxiv.org/abs/2401.10588)
+)](https://arxiv.org/pdf/2401.10588v1)
 </div>
 
-The official implementation of AAAI24 paper [DGL:Dynamic Global-Local Prompt Tuning for Text-Video Retrieval](https://arxiv.org/abs/2401.10588). With only training 0.83 MB parameters, we can surpass fully finetuning/PEFL methods in Text2Video Retrieval.
+The official implementation of AAAI24 paper [DGL:Dynamic Global-Local Prompt Tuning for Text-Video Retrieval](https://arxiv.org/pdf/2401.10588v1). With only training 0.83 MB parameters, we can surpass fully finetuning/PEFL methods in Text2Video Retrieval.
 
 ## 📌 Citation
 If you find this paper useful, please consider staring 🌟 this repo and citing 📑 our paper:
