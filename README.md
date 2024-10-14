@@ -3,7 +3,7 @@
 # 【AAAI'2024 🔥】DGL: Dynamic Global-Local Prompt Tuning for Text-Video Retrieval
 [![Conference](https://img.shields.io/badge/AAAI-2024-yellow?link=https%3A%2F%2Faaai.org%2Faaai-conference%2F
 )](https://ojs.aaai.org/index.php/AAAI/article/view/28475)
-[![Paper](https://img.shields.io/badge/Paper-arxiv.2401.10588-blue?link=https%3A%2F%2Farxiv.org%2Fabs%2F2401.10588
+[![arxiv](https://img.shields.io/badge/Paper-arxiv.2401.10588-blue?link=https%3A%2F%2Farxiv.org%2Fabs%2F2401.10588
 )](https://arxiv.org/pdf/2401.10588v1)
 </div>
 
